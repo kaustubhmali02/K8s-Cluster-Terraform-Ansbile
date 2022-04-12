@@ -1,8 +1,10 @@
 ---
 - hosts: all
-  vars:
-    - username: sammy
-    - home: /home/sammy   
+  vars_files:
+    - /vars/external_vars.yml
+  # vars:
+  #   - username: sammy
+  #   - home: /home/sammy   
   tasks:
     - name: print variables
       debug:
