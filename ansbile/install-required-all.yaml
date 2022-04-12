@@ -1,0 +1,11 @@
+---
+- hosts: servers
+  become: true
+  name: Installing required (Java) softwares in all machines
+  tasks:
+
+    - name: Installing Java
+      ansible.builtin.apt:
+        name: openjdk-8-jdk
+        state: latest
+        install_recommends: yes
