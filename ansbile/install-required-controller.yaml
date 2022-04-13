@@ -1,0 +1,35 @@
+---
+- hosts: controller
+  become: true
+  vars_files:
+    - ./vars/external_vars.yml
+  name: Installing required (Java) softwares in all machines
+  tasks:
+    - name: Installing Java
+      ansible.builtin.apt:
+        name: {{ java-version }}
+        state: latest
+        update_cache: yes
+        install_recommends: yes
+
+    - name: Add Jenkins GPG apt Key
+      ansible.builtin.apt_key:
+        url: {{ jenkins-GCP-key-url }}
+        state: present 
+
+    - name: Configuring Jenkins repository
+      ansible.builtin.apt_repository: 
+        repo: {{ jenkins-add-repo }}
+        state: present
+
+    - name: Ensure jenkins is installed
+      ansible.builtin.apt: 
+        name: jenkins 
+        update_cache: yes
+        state: latest
+
+    - name: Enabling jenkins service
+      ansible.builtin.service:
+        name: jenkins
+        enabled: yes
+        state: started
