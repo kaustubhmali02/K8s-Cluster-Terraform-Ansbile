@@ -31,3 +31,20 @@
         name: jenkins
         enabled: yes
         state: started
+    
+    - name: Making jenkins directory
+      ansible.builtin.file:
+        path: /var/lib/jenkins/.ssh
+        owner: jenkins
+        group: jenkins
+        state: directory
+        mode: 0777
+    
+    - name: Creating known_hosts file
+      ansible.builtin.file:
+        path: /var/lib/jenkins/.ssh/known_hosts
+        state: touch
+        mode: 0700
+        owner: jenkins
+        group: jenkins
+      run_once: true
