@@ -7,7 +7,7 @@
   tasks:
     - name: Installing Java
       ansible.builtin.apt:
-        name: {{ java-version }}
+        name: "{{ java-version }}"
         state: latest
         update_cache: yes
         install_recommends: yes
