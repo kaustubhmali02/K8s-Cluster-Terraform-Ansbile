@@ -6,6 +6,8 @@
   gather_facts: yes
   connection: ssh
   name: Installing Required Softwares in Kubernetes Master Node [Java, Docker, Kubernetes]
+  vars:
+    password: password
   tasks:
     # Installing Java
     - name: Installing Java
@@ -106,3 +108,70 @@
       shell: |
               sudo systemctl daemon-reload
               sudo systemctl restart docker
+    
+    # Creating Kube, Jenkins User
+    - name: Create the kube user account
+      ansible.builtin.user: 
+        name: kube
+        shell: /bin/bash
+        password: "{{ password | password_hash('sha512') }}"
+        groups: 
+          - docker 
+          - sudo
+        append: yes 
+        state: present 
+        home: /home/kube
+        generate_ssh_key: yes
+        ssh_key_bits: 2048
+        ssh_key_file: .ssh/id_rsa
+        ssh_key_type: rsa
+      register: kube
+        
+
+    - name: Allow 'kube' to use sudo without needing a password
+      lineinfile:
+        dest: /etc/sudoers
+        line: 'kube ALL=(ALL) NOPASSWD: ALL'
+        validate: 'visudo -cf %s'
+
+    - name: set up authorized keys for the kube user
+      authorized_key: 
+        user: kube 
+        key: "{{ kube.ssh_public_key }}"
+        state: present
+
+    # Creating Jenkins User
+    - name: Creating Jenkins User
+      ansible.builtin.user:
+        name: jenkins
+        shell: /bin/bash
+        password: "{{ password | password_hash('sha512') }}"
+        groups: 
+          - docker 
+          - sudo
+        append: yes
+        state: present
+        home: /home/jenkins
+        generate_ssh_key: yes
+        ssh_key_bits: 2048
+        ssh_key_file: .ssh/id_rsa
+        ssh_key_type: rsa
+      register: jenkins
+
+    - name: Add jenkins user to the sudoers
+      ansible.builtin.copy:
+          dest: "/etc/sudoers"
+          content: "jenkins  ALL=(ALL)  NOPASSWD: ALL"
+    
+    - name: Set authorized key for the Jenkins user
+      authorized_key: 
+        user: jenkins
+        key: "{{ jenkins.ssh_public_key }}"
+        state: present
+
+    # - name: Changing the mode of authorize_keys file
+    #   ansible.builtin.file:
+    #     path: /home/jenkins/.ssh/authorized_keys
+    #     mode: 0700
+    #     owner: jenkins
+    #     group: jenkins
