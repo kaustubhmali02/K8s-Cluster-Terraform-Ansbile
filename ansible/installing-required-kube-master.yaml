@@ -14,7 +14,7 @@
         install_recommends: yes
     
     - name: initialize the cluster
-      shell: kubeadm init --pod-network-cidr=10.244.0.0/16
+      shell: kubeadm init --pod-network-cidr=10.244.0.0/16 --ignore-preflight-errors=[NumCPU,Mem]
       args:
         chdir: $HOME
         creates: cluster_initialized.txt
@@ -48,7 +48,7 @@
       register: kubernetes_join_command
 
     - debug:
-      msg: "{{ kubernetes_join_command.stdout }}"
+        msg: "{{ kubernetes_join_command.stdout }}"
 
     - name: Copy join command to local file.
       become: yes
