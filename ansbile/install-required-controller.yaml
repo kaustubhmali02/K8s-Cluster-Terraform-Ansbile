@@ -3,7 +3,7 @@
   become: true
   vars_files:
     - ./vars/external_vars.yml
-  name: Installing required (Java) softwares in all machines
+  name: Installing Required Softwares in Controller
   tasks:
     - name: Installing Java
       ansible.builtin.apt:
@@ -11,6 +11,8 @@
         state: latest
         update_cache: yes
         install_recommends: yes
+      vars:
+        - java-version
 
     - name: Add Jenkins GPG apt Key
       ansible.builtin.apt_key:
