@@ -11,7 +11,7 @@
         state: latest
         update_cache: yes
         install_recommends: yes
-    - with_nested: 
+      with_nested: 
         - "{{ java-version }}"
 
     - name: Add Jenkins GPG apt Key
