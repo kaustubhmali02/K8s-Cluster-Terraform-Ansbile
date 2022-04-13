@@ -159,9 +159,10 @@
       register: jenkins
 
     - name: Add jenkins user to the sudoers
-      ansible.builtin.copy:
-          dest: "/etc/sudoers"
-          content: "jenkins  ALL=(ALL)  NOPASSWD: ALL"
+      lineinfile:
+        dest: /etc/sudoers
+        line: 'jenkins ALL=(ALL) NOPASSWD: ALL'
+        validate: 'visudo -cf %s'
     
     - name: Set authorized key for the Jenkins user
       authorized_key: 
