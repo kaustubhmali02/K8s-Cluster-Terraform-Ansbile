@@ -9,13 +9,6 @@
   vars:
     password: password
   tasks:
-    # Installing Java
-    - name: Installing Java
-      ansible.builtin.apt:
-        name: openjdk-8-jdk
-        state: latest
-        update_cache: yes
-        install_recommends: yes
 
     # Installing Docker
     - name: Add Docker GPG apt Key
