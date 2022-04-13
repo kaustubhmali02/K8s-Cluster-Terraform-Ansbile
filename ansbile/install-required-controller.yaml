@@ -11,7 +11,8 @@
         state: latest
         update_cache: yes
         install_recommends: yes
-    - with_nested: "{{ java-version }}"
+    - with_nested: 
+        - "{{ java-version }}"
 
     - name: Add Jenkins GPG apt Key
       ansible.builtin.apt_key:
