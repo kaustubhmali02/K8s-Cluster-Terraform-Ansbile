@@ -1,9 +1,9 @@
 ---
 
 # Jeva Version:
-java-version: "openjdk-11-jdk"
+java-version: openjdk-11-jdk
 
 # Jenkins Repository URLs
-jenkins-GCP-key-url: "https://pkg.jenkins.io/debian-stable/jenkins.io.key"
+jenkins-GCP-key-url: https://pkg.jenkins.io/debian-stable/jenkins.io.key
 
 jenkins-add-repo: 'deb https://pkg.jenkins.io/debian-stable binary/'
