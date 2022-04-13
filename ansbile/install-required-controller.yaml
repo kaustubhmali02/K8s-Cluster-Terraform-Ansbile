@@ -5,14 +5,13 @@
     - ./vars/external_vars.yml
   name: Installing Required Softwares in Controller
   tasks:
-    - include_vars: ./vars/external_vars.yml
     - name: Installing Java
       ansible.builtin.apt:
         name: "{{ java-version }}"
         state: latest
         update_cache: yes
         install_recommends: yes
-      
+    - debug: "{{ java-version }}"
 
     - name: Add Jenkins GPG apt Key
       ansible.builtin.apt_key:
