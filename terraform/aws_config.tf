@@ -8,8 +8,8 @@ terraform {
 }
  
 provider "aws" {
-  profile = "default"
+  profile = "kaustubhmali"
   region  = var.aws_region
-  access_key = ""
-  secret_key = ""
+  access_key = "Empty"
+  secret_key = "Empty"
 }
