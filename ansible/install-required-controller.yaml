@@ -11,6 +11,37 @@
         state: latest
         update_cache: yes
         install_recommends: yes
+
+    # Creating Kube, Jenkins User
+    - name: Create the kube user account
+      ansible.builtin.user: 
+        name: kube
+        shell: /bin/bash
+        password: "{{ password | password_hash('sha512') }}"
+        groups: 
+          - docker 
+          - sudo
+        append: yes 
+        state: present 
+        home: /home/kube
+        generate_ssh_key: yes
+        ssh_key_bits: 2048
+        ssh_key_file: .ssh/id_rsa
+        ssh_key_type: rsa
+      register: kube
+        
+
+    - name: Allow 'kube' to use sudo without needing a password
+      lineinfile:
+        dest: /etc/sudoers
+        line: 'kube ALL=(ALL) NOPASSWD: ALL'
+        validate: 'visudo -cf %s'
+
+    - name: set up authorized keys for the kube user
+      authorized_key: 
+        user: kube 
+        key: "{{ kube.ssh_public_key }}"
+        state: present
   
     - name: Add Jenkins GPG apt Key
       ansible.builtin.apt_key:
@@ -37,10 +68,8 @@
     - name: Making jenkins directory
       ansible.builtin.file:
         path: /var/lib/jenkins/.ssh
-        owner: ubuntu
-        group: 
-          - ubuntu
-          - sudo
+        owner: jenkins
+        group: jenkins
         state: directory
         mode: 0777
     
@@ -49,8 +78,6 @@
         path: /var/lib/jenkins/.ssh/known_hosts
         state: touch
         mode: 0700
-        owner: ubuntu
-        group: 
-          - ubuntu
-          - sudo
+        owner: jenkins
+        group: jenkins
       run_once: true
