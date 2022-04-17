@@ -9,17 +9,12 @@ pipeline {
 	            git branch: 'master', url: 'https://github.com/kaustubhmali02/devops-capstone-project-2.git'
 	        }
 	    }
-	    stage('2. Stop all old containers') {
-	        steps {
-		        sh '/home/jenkins/check-running-containers.sh'
-	        }
-        }
-		stage ("3. Build the docker file") {
+		stage ("2. Build the docker file") {
 			steps {
 				sh "docker build -t website-app ."
 			}
 		}
-        stage ("4. Docker Login") {
+        stage ("3. Docker Login") {
 			steps {
 				sh "docker login -u \"${USERNAME_DOCKER}\" -p \"${PASSWORD_DOCKER}\""
 			}
