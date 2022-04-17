@@ -58,7 +58,6 @@
         shell: /bin/bash
         password: "{{ password | password_hash('sha512') }}"
         groups: 
-          - docker 
           - sudo
         append: yes 
         state: present 
@@ -89,7 +88,6 @@
         shell: /bin/bash
         password: "{{ password | password_hash('sha512') }}"
         groups: 
-          - docker 
           - sudo
         append: yes
         state: present
