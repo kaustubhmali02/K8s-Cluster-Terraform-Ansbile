@@ -1,0 +1,38 @@
+pipeline {
+	agent {label 'kube-master'}
+	// triggers {
+    //     pollSCM('')
+    // }
+	stages {
+	    stage ("1. Git repo") {
+	        steps {
+	            git branch: 'master', url: 'https://github.com/kaustubhmali02/devops-capstone-project-2.git'
+	        }
+	    }
+	    stage('2. Stop all old containers') {
+	        steps {
+		        sh '/home/jenkins/check-running-containers.sh'
+	        }
+        }
+		stage ("3. Build the docker file") {
+			steps {
+				sh "docker build -t website-app ."
+			}
+		}
+        stage ("4. Docker Login") {
+			steps {
+				sh "docker login -u \"${USERNAME_DOCKER}\" -p \"${PASSWORD_DOCKER}\""
+			}
+		}
+		stage ("4. Push changes to docker hub") {
+		    steps {
+		        sh "docker push \"${USERNAME_DOCKER}\"/website-app:latest"
+		    }
+		}
+        stage ("5. Run the deployment file") {
+		    steps {
+		        sh "kubectl create deployment ./kubernetes-deployments/deployment.yaml"
+		    }
+		}
+	}
+}
