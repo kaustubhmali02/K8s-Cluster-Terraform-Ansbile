@@ -2,6 +2,8 @@
 - hosts: controller
   become: true
   name: Installing Required Softwares in Controller
+  vars:
+    password: password
   tasks:
     - name: Installing Java
       ansible.builtin.apt:
