@@ -54,9 +54,21 @@ variable "sg_ingress_proto" {
 
  
 variable "sg_ingress_ssh" {
-  description = "Port used for the ingress rule"
+  description = "Port used for the SSH ingress rule"
   type        = string
   default     = "22"
+}
+
+variable "sg_ingress_http" {
+  description = "Port used for the HTTP ingress rule"
+  type        = string
+  default     = "8080"
+}
+
+variable "sg_ingress_kube_api_server" {
+  description = "Port used for the Kube API Server ingress rule"
+  type        = string
+  default     = "6443"
 }
  
 variable "sg_egress_proto" {
@@ -123,6 +135,12 @@ variable "instance_type" {
   description = "Type of the instance"
   type        = string
   default     = "t2.micro"
+}
+
+variable "instance_type_kubemaster" {
+  description = "Type of the instance"
+  type        = string
+  default     = "t2.medium"
 }
  
 variable "key_pair" {

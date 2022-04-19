@@ -10,6 +10,6 @@ terraform {
 provider "aws" {
   profile = "kaustubhmali"
   region  = var.aws_region
-  access_key = "Empty"
-  secret_key = "Empty"
+  access_key = "empty"
+  secret_key = "empty"
 }
