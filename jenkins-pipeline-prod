@@ -11,7 +11,7 @@ pipeline {
 	    }
 		stage ("2. Build the docker file") {
 			steps {
-				sh "docker build -t website-app ."
+				sh "docker build -t \"${USERNAME_DOCKER}\"/website-app ."
 			}
 		}
         stage ("3. Docker Login") {
@@ -26,7 +26,7 @@ pipeline {
 		}
         stage ("5. Run the deployment file") {
 		    steps {
-		        sh "kubectl create deployment ./kubernetes-deployments/deployment.yaml"
+		        sh "kubectl apply -f ./kubernetes-deployments/deployment.yaml"
 		    }
 		}
 	}
