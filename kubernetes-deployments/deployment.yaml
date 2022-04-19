@@ -6,15 +6,6 @@ metadata:
   labels:
     app: website-app
 spec:
-  affinity:
-    nodeAntiAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-        - matchExpressions:
-          - key: kubernetes.io/hostname
-            operator: In
-            values:
-            - ip-10-0-1-117
   selector:
     matchLabels:
       app: website-app
@@ -29,18 +20,21 @@ spec:
       labels:
         app: website-app
     spec:
+      affinity:
+        nodeAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - ip-10-0-1-117
       containers:
       - name: website-app
         image: kaustubhmali/website-app
         imagePullPolicy: Always
         ports:
         - containerPort: 30008
-        # livenessProbe:
-        #   httpGet:
-        #     path: /status
-        #     port: 5000
-        #   initialDelaySeconds: 3
-        #   periodSeconds: 3
         resources:
           requests:
             memory: "64Mi"
