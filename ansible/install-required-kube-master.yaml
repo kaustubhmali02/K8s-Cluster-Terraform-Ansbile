@@ -14,7 +14,7 @@
         install_recommends: yes
     
     - name: initialize the cluster
-      shell: kubeadm init --pod-network-cidr=10.244.0.0/16 --ignore-preflight-errors=NumCPU,Mem
+      shell: kubeadm init --pod-network-cidr=10.244.0.0/16
       args:
         chdir: $HOME
         creates: cluster_initialized.txt
