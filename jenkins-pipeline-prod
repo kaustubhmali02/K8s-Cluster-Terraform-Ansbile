@@ -24,9 +24,14 @@ pipeline {
 		        sh "docker push \"${USERNAME_DOCKER}\"/website-app:latest"
 		    }
 		}
-        stage ("5. Run the deployment file") {
+        stage ("5. Run the kubernetes deployment manifest file") {
 		    steps {
-		        sh "kubectl apply -f ./kubernetes-deployments/deployment.yaml"
+		        sh "kubectl apply -f ./kubernetes/deployment.yaml"
+		    }
+		}
+		stage ("6. Run the kubernetes service manifest file") {
+		    steps {
+		        sh "kubectl apply -f ./kubernetes/service.yaml"
 		    }
 		}
 	}
