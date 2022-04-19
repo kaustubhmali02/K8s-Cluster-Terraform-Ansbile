@@ -21,14 +21,15 @@ spec:
         app: website-app
     spec:
       affinity:
-        nodeAntiAffinity:
+        podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-            - matchExpressions:
+          - labelSelector:
+              matchExpressions:
               - key: kubernetes.io/hostname
                 operator: In
                 values:
-                - ip-10-0-1-117
+                - kube-master
+            topologyKey: "kubernetes.io/hostname"
       containers:
       - name: website-app
         image: kaustubhmali/website-app
