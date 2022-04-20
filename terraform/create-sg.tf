@@ -54,6 +54,18 @@ resource "aws_security_group_rule" "ingress_kube_api" {
   security_group_id = aws_security_group.sg.id
 }
 
+resource "aws_security_group_rule" "ingress_nodePort_port" {
+  type              = "ingress"
+  description       = "Kubernetes API server"
+  protocol          = var.sg_ingress_proto
+  from_port         = var.sg_ingress_nodePort_service
+  to_port           = var.sg_ingress_nodePort_service
+  cidr_blocks       = [ var.sg_ingress-cidr_block ]
+  ipv6_cidr_blocks  = []
+  prefix_list_ids   = []
+  security_group_id = aws_security_group.sg.id
+}
+
 #   ingress = [{
 #     description      = "My public IP"
 #     protocol         = var.sg_ingress_proto

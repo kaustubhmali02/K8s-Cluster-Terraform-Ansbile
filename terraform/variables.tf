@@ -70,6 +70,12 @@ variable "sg_ingress_kube_api_server" {
   type        = string
   default     = "6443"
 }
+
+variable "sg_ingress_nodePort_service" {
+  description = "Port used for the Kube API Server ingress rule"
+  type        = string
+  default     = "30008"
+}
  
 variable "sg_egress_proto" {
   description = "Protocol used for the egress rule"
