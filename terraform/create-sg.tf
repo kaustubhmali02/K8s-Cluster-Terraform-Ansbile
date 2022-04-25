@@ -56,7 +56,7 @@ resource "aws_security_group_rule" "ingress_kube_api" {
 
 resource "aws_security_group_rule" "ingress_nodePort_port" {
   type              = "ingress"
-  description       = "Kubernetes API server"
+  description       = "NodePort service"
   protocol          = var.sg_ingress_proto
   from_port         = var.sg_ingress_nodePort_service
   to_port           = var.sg_ingress_nodePort_service
