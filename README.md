@@ -1,6 +1,9 @@
+Created, configured an aws infrastructure using terraform and ansible. 
+Used docker to containerized the web-application using CDCI pipepine with jenkins.
+
 # Installations: 
 
-# Build our infrastructure using terraform on AWS [./terraform]
+## Build our infrastructure using terraform on AWS [./terraform]
 ## Install Terraform in your local system:
 More info: https://learn.hashicorp.com/tutorials/terraform/install-cli?in=terraform/aws-get-started
 
@@ -35,3 +38,7 @@ Run all the ansible manifest files to configure all the ec2 intances with the re
 - ansible-playbook ansible\install-required-kube-cluster.yaml
 - ansible-playbook ansible\install-required-kube-master.yaml
 - ansible-playbook ansible\join-nodes-to-cluster.yaml
+
+## Connect the kubernetes-master node using ssh for Jenkins-Master [controller] 
+
+## Create a jenkins project using groovy script ./jenkins-pipeline-prod 
