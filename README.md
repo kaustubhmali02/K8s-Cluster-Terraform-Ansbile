@@ -13,12 +13,25 @@ More info: https://learn.hashicorp.com/tutorials/terraform/install-cli?in=terraf
 - terraform plan
 - terrafrom apply
 
-## Configure ssh keys [root/user] once the instances are up and running.
+## Install anisble in controller-instance
+More info: https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#installing-ansible-on-ubuntu
+
+## Clone the repo in controller
+git clone https://github.com/kaustubhmali02/devops-capstone-project-2.git
+
+## Configure ssh keys [root/user] for ansible and add the private ips to /etc/ansible/hosts
  - controller [ansible-master && jenkins master]
  - kubernetes-master
  - k-node-1
  - k-node-2
 
-## 
+To check if all servers are configured properly [ping and pong]
+ansible -m ping all [regular user]
+sudo ansible -m ping all [root user]
 
-## Once everything is up and running will move on with ansible to configure out infrastructure [./ansible] 
+## Once everything is up and running will move on with ansible to configure out infrastructure [./ansible]
+Run all the ansible manifest files to configure all the ec2 intances with the required packages
+- anisble-playbook ansible\install-required-controller.yaml
+- ansible-playbook ansible\install-required-kube-cluster.yaml
+- ansible-playbook ansible\install-required-kube-master.yaml
+- ansible-playbook ansible\join-nodes-to-cluster.yaml
