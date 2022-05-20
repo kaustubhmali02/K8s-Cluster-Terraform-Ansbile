@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 Created, configured an aws infrastructure using terraform and ansible. 
 Used docker to containerized the web-application using CDCI pipepine with jenkins.
 
@@ -88,4 +87,3 @@ Run all the ansible manifest files to configure all the ec2 intances with the re
 ## Connect the kubernetes-master node using ssh for Jenkins-Master [controller] 
 
 ## Create a jenkins project using groovy script ./jenkins-pipeline-prod 
->>>>>>> 4eb50ea12170d8fbd2c944fd60bda1aa88728e15
