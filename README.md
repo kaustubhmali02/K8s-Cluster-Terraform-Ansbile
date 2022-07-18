@@ -1,5 +1,4 @@
-Created, configured an aws infrastructure using terraform and ansible. 
-Used docker to containerized the web-application using CDCI pipepine with jenkins.
+Created, configured an aws infrastructure using terraform and ansible. Used docker to containerize the web-application using CDCI pipeline with Jenkins.
 
 # Installations: 
 
