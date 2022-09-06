@@ -6,20 +6,13 @@
 variable "aws_region" {
   description = "AWS region"
   type        = string
-  default     = "us-east-2"
+  default     = "us-east-1"
 }
  
 variable "owner" {
   description = "Configuration owner"
   type        = string
 }
- 
-variable "aws_region_az" {
-  description = "AWS region availability zone"
-  type        = string
-  default     = "a"
-}
- 
  
 # Variables for VPC
 ######################################
@@ -130,12 +123,7 @@ variable "rt_cidr_block" {
  
 # Variables for Instance
 ######################################
- 
-variable "instance_ami" {
-  description = "ID of the AMI used"
-  type        = string
-  default     = "ami-0fb653ca2d3203ac1"
-}
+
  
 variable "instance_type" {
   description = "Type of the instance"
@@ -152,7 +140,7 @@ variable "instance_type_kubemaster" {
 variable "key_pair" {
   description = "SSH Key pair used to connect"
   type        = string
-  default     = "ec2key"
+  default     = "ec2-key-us-east-1"
 }
  
 variable "root_device_type" {

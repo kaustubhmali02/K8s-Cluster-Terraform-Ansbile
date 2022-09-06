@@ -1,8 +1,8 @@
 # create-instance.tf
 
 resource "aws_instance" "controller" {
-  ami                         = var.instance_ami
-  availability_zone           = "${var.aws_region}${var.aws_region_az}"
+  ami                         = data.aws_ami.amazon_linux.id
+  availability_zone           = data.aws_availability_zones.available.names[0]
   instance_type               = var.instance_type
   associate_public_ip_address = true
   vpc_security_group_ids      = [aws_security_group.sg.id]
@@ -24,8 +24,8 @@ resource "aws_instance" "controller" {
 }
 
 resource "aws_instance" "kubernetes-master" {
-  ami                         = var.instance_ami
-  availability_zone           = "${var.aws_region}${var.aws_region_az}"
+  ami                         = data.aws_ami.amazon_linux.id
+  availability_zone           = data.aws_availability_zones.available.names[0]
   instance_type               = var.instance_type_kubemaster
   associate_public_ip_address = true
   vpc_security_group_ids      = [aws_security_group.sg.id]
@@ -47,8 +47,8 @@ resource "aws_instance" "kubernetes-master" {
 }
 
 resource "aws_instance" "k-node-1" {
-  ami                         = var.instance_ami
-  availability_zone           = "${var.aws_region}${var.aws_region_az}"
+  ami                         = data.aws_ami.amazon_linux.id
+  availability_zone           = data.aws_availability_zones.available.names[0]
   instance_type               = var.instance_type
   associate_public_ip_address = true
   vpc_security_group_ids      = [aws_security_group.sg.id]
@@ -70,8 +70,8 @@ resource "aws_instance" "k-node-1" {
 }
 
 resource "aws_instance" "k-node-2" {
-  ami                         = var.instance_ami
-  availability_zone           = "${var.aws_region}${var.aws_region_az}"
+  ami                         = data.aws_ami.amazon_linux.id
+  availability_zone           = data.aws_availability_zones.available.names[0]
   instance_type               = var.instance_type
   associate_public_ip_address = true
   vpc_security_group_ids      = [aws_security_group.sg.id]
